@@ -9,9 +9,12 @@ import {
 } from "react-native";
 import api from "../axios/axios";
 import { Ionicons} from '@expo/vector-icons'
+import { useNavigation} from '@react-navigation/native'
 
 
-export default function Login({navigation}) {
+export default function Login({}) {
+
+  const navigation = useNavigation();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -35,6 +38,7 @@ export default function Login({navigation}) {
     <View style={styles.container}>
       <Text style={styles.title}>Faça Login</Text>
       <TextInput
+        
         placeholder="E-mail"
         value={user.email}
         onChangeText={(value) => {
@@ -81,9 +85,10 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input: {
-    width: 200,
+    borderColor:"gray",
+    width: "100%",
     height: 40,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
   },
