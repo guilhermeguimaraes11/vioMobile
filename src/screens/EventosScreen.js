@@ -32,7 +32,11 @@ return(
         data={eventos}
         keyExtractor={(item) => item.id_evento.toString()}
         renderItem={(item)=>(
-            <TouchableOpacity>
+            <TouchableOpacity style={styles.eventCard}
+            onPress={()=> console.log ("Abrir o Modal")}>
+              <Text style={styles.eventName}>{item.nome}</Text>
+              <Text>{item.local}</Text>
+              <Text>{new Date(item.data_hora).toLocaleString}</Text>
                 
             </TouchableOpacity>
 )}
