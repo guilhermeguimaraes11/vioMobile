@@ -7,41 +7,39 @@ import {
   TouchableOpacity,
   Modal,
   StyleSheet,
-  ActivityIndicator,
+  ActivityIndicator
 } from "react-native";
 
-export default function EventosScreen() {
+export default function EventosScreen({ navigation }) {
   const [eventos, setEventos] = useState([]);
   const [ingressos, setIngressos] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState();
-  const [eventoSelecionado, setEventoSelecionado] = useState(null);
-}
+  const [eventoSelecionado, setEventoSelecionado] = useState("");
 
-useEffect(() => {
-  getEventos();
-});
+  useEffect(() => {
+    getEventos();
+  }, []);
 
-async function getEventos() {
-  try {
-    const response = await api.getEventos();
-    console.log(response.data);
-    setEventos(response.data.eventos);
-    setLoading(false);
-  } catch (error) {
-    console.log(error.response.data.error);
+  async function getEventos() {
+    try {
+      const response = await api.getEventos();
+      console.log(response.data);
+      setEventos(response.data.eventos);
+      setLoading(false);
+    } catch (error) {
+      console.log(error.response.data.error);
+    }
   }
-}
   async function abrirModalComIngressos(evento) {
- setEventoSelecionado(evento);
- setModalVisible(true);
+    setEventoSelecionado(evento);
+    setModalVisible(true);
     try {
       const response = await api.getIngressosPorEvento(evento.id_evento);
       setIngressos(response.data.ingressos);
     } catch (error) {
       console.log("Erro ao buscar ingressos:", error.response);
-    
- 
+    }
   }
 
   return (
@@ -55,8 +53,10 @@ async function getEventos() {
           keyExtractor={(item) => item.id_evento.toString()}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-              <View style={styles.eventCard}
-              onPress={() => abrirModalComIngressos(item)}>
+              <View
+                style={styles.eventCard}
+                onPress={() => abrirModalComIngressos(item)}
+              >
                 <Text>{item.nome}</Text>
                 <Text>{item.local}</Text>
                 <Text>{new Date(item.data_hora).toLocaleDateString()}</Text>
@@ -87,8 +87,11 @@ async function getEventos() {
               )}
             />
           )}
-          <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
-            <Text style={{color:"white"}}>Fechar</Text>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => setModalVisible(false)}
+          >
+            <Text style={{ color: "white" }}>Fechar</Text>
           </TouchableOpacity>
         </View>
       </Modal>
