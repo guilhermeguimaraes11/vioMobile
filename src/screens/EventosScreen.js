@@ -38,7 +38,7 @@ export default function EventosScreen({ navigation }) {
       const response = await api.getIngressosPorEvento(evento.id_evento);
       setIngressos(response.data.ingressos);
     } catch (error) {
-      console.log("Erro ao buscar ingressos:", error.response);
+      console.log("Erro ao buscar ingresso:", error.response);
     }
   }
 
