@@ -10,7 +10,7 @@ import {
   ActivityIndicator
 } from "react-native";
 
-export default function EventosScreen({ navigation }) {
+export default function EventosScreen() {
   const [eventos, setEventos] = useState([]);
   const [ingressos, setIngressos] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -37,8 +37,9 @@ export default function EventosScreen({ navigation }) {
     try {
       const response = await api.getIngressosPorEvento(evento.id_evento);
       setIngressos(response.data.ingressos);
+      console.log(response.data.ingressos);
     } catch (error) {
-      console.log("Erro ao buscar ingresso:", error.response);
+      console.log("Erro ao buscar ingressos:", error.response);
     }
   }
 
@@ -52,15 +53,11 @@ export default function EventosScreen({ navigation }) {
           data={eventos}
           keyExtractor={(item) => item.id_evento.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-              <View
-                style={styles.eventCard}
-                onPress={() => abrirModalComIngressos(item)}
-              >
+            <TouchableOpacity style={styles.eventCard} onPress={() => abrirModalComIngressos(item)}>
+              
                 <Text>{item.nome}</Text>
                 <Text>{item.local}</Text>
                 <Text>{new Date(item.data_hora).toLocaleDateString()}</Text>
-              </View>
             </TouchableOpacity>
           )}
         />
@@ -80,12 +77,12 @@ export default function EventosScreen({ navigation }) {
               data={ingressos}
               keyExtractor={(item) => item.id_ingresso.toString()}
               renderItem={({ item }) => (
-                <View>
+                <View style={styles.ingressoItem}>
                   <Text>Tipo: {item.tipo}</Text>
-                  <Text>Preço: R${item.preco}</Text>
+                  <Text>Preço: R$ {item.preco}</Text>
                 </View>
-              )}
-            />
+              )}>
+            </FlatList>
           )}
           <TouchableOpacity
             style={styles.closeButton}

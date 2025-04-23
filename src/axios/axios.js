@@ -15,7 +15,7 @@ const sheets = {
   postCadastroEvento: (evento) => api.post("evento/", evento),
   postCadastroIngresso: (ingresso) => api.post("ingresso/", ingresso),
   getEventos: () => api.get("evento"),
-  getIngressosPorEvento: (id_evento) => api.get(`ingresso/evento/${id_evento}`),
+  getIngressosPorEvento: (idEvent) => api.get(`ing/evento/${idEvent}`),
 };
 
 export default sheets;
