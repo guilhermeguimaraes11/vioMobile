@@ -10,7 +10,8 @@ import {
 import api from "../axios/axios";
 import { Ionicons} from '@expo/vector-icons'
 import { useNavigation} from '@react-navigation/native'
-
+import * as SecureStore from 'expo-secure-store';
+import asyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({}) {
 
@@ -20,6 +21,25 @@ export default function Login({}) {
     password: "",
     showPassword:false,
   });
+
+  async function saveToken(token) {
+  await SecureStore.setItemAsync("token", token);
+}
+
+async function handleLogin() {
+  await api.postLogin(user).then(
+    (response) => {
+      Alert.alert("OK", response.data.message);
+      saveToken(response.data.token);
+      navigation.navigate("EventosScreen");
+    },
+    (error) => {
+      Alert.alert("Erro", error.response.data.error);
+      console.log(error);
+    }
+  );
+}
+
 
   async function handleLogin() {
     await api.postLogin(user).then(
