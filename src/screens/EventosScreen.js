@@ -10,6 +10,8 @@ import {
   ActivityIndicator
 } from "react-native";
 
+
+
 export default function EventosScreen() {
   const [eventos, setEventos] = useState([]);
   const [ingressos, setIngressos] = useState([]);

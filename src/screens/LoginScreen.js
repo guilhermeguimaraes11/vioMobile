@@ -11,7 +11,7 @@ import api from "../axios/axios";
 import { Ionicons} from '@expo/vector-icons'
 import { useNavigation} from '@react-navigation/native'
 import * as SecureStore from 'expo-secure-store';
-import asyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Login({}) {
 
@@ -24,6 +24,7 @@ export default function Login({}) {
 
   async function saveToken(token) {
   await SecureStore.setItemAsync("token", token);
+  console.log("token:", token);
 }
 
 async function handleLogin() {
@@ -39,21 +40,7 @@ async function handleLogin() {
     }
   );
 }
-
-
-  async function handleLogin() {
-    await api.postLogin(user).then(
-      (response) => {
-        console.log(response.data.message);
-        Alert.alert("OK", response.data.message);
-        navigation.navigate("EventosScreen");
-      },
-      (error) => {
-        Alert.alert("Erro", error.response.data.error);
-        console.log(error);
-      }
-    );
-  }
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Faça Login</Text>
