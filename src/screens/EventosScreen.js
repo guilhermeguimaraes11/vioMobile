@@ -9,6 +9,7 @@ import {
   StyleSheet,
   ActivityIndicator
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 
 
@@ -45,8 +46,14 @@ export default function EventosScreen() {
     }
   }
 
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
+    <TouchableOpacity onPress={()=>{
+      navigation.navigate("CadastroEventoScreen");
+    }}>
+      <Text>Criar novo evento</Text>
+    </TouchableOpacity>
       <Text style={styles.title}> Eventos Disponiveis </Text>
       {loading ? (
         <ActivityIndicator size="large" color="blue" />

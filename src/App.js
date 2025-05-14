@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator >
+      <Stack.Navigator>
         <Stack.Screen
           name="Login"
           component={() => (
@@ -34,13 +34,15 @@ export default function App() {
             </Layout>
           )}
         />
-        <Stack.Screen name="EventosScreen">{()=>(
-          <Layout>
-            <EventosScreen/>
-          </Layout>
-        )}</Stack.Screen> 
+        <Stack.Screen name="EventosScreen">
+          {() => (
+            <Layout>
+              <EventosScreen />
+            </Layout>
+          )}
+        </Stack.Screen>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="CadastroEvento" component={CadastroEventoScreen} />
+        <Stack.Screen name="CadastroEventoScreen" component={CadastroEventoScreen} />
         <Stack.Screen
           name="CadastroOrganizador"
           component={CadastroOrganizadorScreen}
